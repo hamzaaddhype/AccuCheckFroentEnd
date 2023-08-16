@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 const Signin = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const savebtnhandler = async (e) => {
@@ -32,6 +33,7 @@ const Signin = () => {
       });
     } else {
       Swal.fire("Good job!", "Login Sucessfully!", "success");
+      navigate('/user')
     }
     result = await result.json();
 

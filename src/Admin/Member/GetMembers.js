@@ -68,7 +68,7 @@ const GetMembers = () => {
                     role="group"
                     aria-label="Basic example"
                   >
-                    <NavLink to={`/UpdateMember/${member._id}`}>
+                    <NavLink to={`/Admin/UpdateMember/${member._id}`}>
                     <button type="button" className="btn btn-warning">
                     <i class="fa-regular fa-pen-to-square"></i>
                     </button>
