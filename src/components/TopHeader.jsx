@@ -3,7 +3,7 @@ import React from 'react'
 const TopHeader = () => {
   return (
     <>
-    {/* <div className="c" id="admin_user"> */}
+
     <div className='container top_header p-4' style={{width:"80%",marginLeft:"20%"}}>
             <div className='row align-items-center'>
                 <div className='col-md-6'>
@@ -39,8 +39,6 @@ const TopHeader = () => {
                 </div>
             </div>
         </div>
-    {/* </div> */}
-       
     </>
   )
 }

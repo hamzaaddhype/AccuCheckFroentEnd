@@ -58,7 +58,7 @@ const GetMembers = () => {
           {getMember.map((member) => {
             return (
               <div className="col-md-3">
-                <div className="card ms-2 text-center mb-5">
+                <div className="member_card ms-2 text-center mb-5">
                   <h6>{member.name}</h6>
                   <p>{member.email}</p>
                   <h6>{member.country}</h6>

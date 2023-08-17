@@ -187,7 +187,7 @@ div:where(.swal2-container).swal2-center > .swal2-popup {
   background: #26becfb8;
   color: white;
 }
-.card {
+.member_card {
   /* width: 190px; */
   /* height: 300px; */
   border-radius: 30px;
@@ -344,7 +344,7 @@ font-weight: 400;
 line-height: 24px;
 }
 .doctor_image{
-  margin-top: 8pc;
+  /* margin-top: 8pc; */
 }
 .doc_parent_div{
   border: 1px solid #26BECF;
@@ -386,4 +386,32 @@ input[type=date]::-webkit-datetime-edit-year-field {
 .for_achivements_background{
   background: #FBFCFC;
   border-radius: 5px;
+}
+
+
+
+.common_button{
+  border: 1px solid #8EB927;
+  border-radius: 10px;
+  color: #000000;
+}
+.common_button:hover{
+  background: #8EB927;
+}
+.img_overlap{
+  margin-right: -35px
+}
+.radeem{
+  background: #8EB927;
+}
+.active{
+  background: #8EB927 !important;
+  border: 1px solid #8EB927 !important;
+}
+.shop_container{
+  background: #FBFCFC;
+  border-radius: 10px;
+}
+.for_common_Top_margin{
+  margin-top: 10pc;
 }

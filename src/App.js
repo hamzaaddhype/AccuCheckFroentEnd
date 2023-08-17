@@ -20,8 +20,11 @@ import Signin from "./pages/Signin";
 import ForgotPassword from "./pages/ForgotPassword";
 import MemberLayout from "./components/MemberLayout";
 import TopHeader from "./components/TopHeader";
-import MemberHome from "./Member/MemberHome";
+// import MemberHome from "./Member/MemberHome";
 // import 
+import Shop from "./Member/Shop";
+import MemberHome from "./Member/MemberHome";
+import MemberCourses from "./Member/MemberCourses";
 function App() {
   return (
     <>
@@ -48,12 +51,19 @@ function App() {
           
         </Routes>
         <Routes>
-            <Route path="/user" element={<MemberLayout />} />
+            <Route path="/user" element={<MemberLayout />}>
+            <Route path="/user/Shop" element={<Shop/>} />
+            <Route path="/user/MemberHome" element={<MemberHome/>} />
+            <Route path="/user/MemberCourses" element={<MemberCourses/>} />
+            </Route>
           </Routes>
       </BrowserRouter>
 
-{/* <MemberLayout/>
-<MemberHome/> */}
+
+     
+
+{/* <MemberLayout/> */}
+{/* <MemberHome/> */}
 
 
 
