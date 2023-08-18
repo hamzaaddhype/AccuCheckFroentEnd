@@ -25,6 +25,8 @@ import TopHeader from "./components/TopHeader";
 import Shop from "./Member/Shop";
 import MemberHome from "./Member/MemberHome";
 import MemberCourses from "./Member/MemberCourses";
+import MemberCompleteCourses from "./Member/MemberCompleteCourses";
+import MemberSupportCommunity from "./Member/MemberSupportCommunity";
 function App() {
   return (
     <>
@@ -33,28 +35,28 @@ function App() {
           <Route path="/" element={<Signin />}/>
           <Route path="/CreateAccont" element={<CreateAccont/>}/>
           <Route path="/ForgotPassword" element={<ForgotPassword/>}/>        
-            User
+            {/* User */}
           <Route path="/Admin" element={<Layout />} >
           <Route path="/Admin/AddUser" element={<AddUser />} />
           <Route path="/Admin/GetMembers" element={<GetMembers />} />
           <Route path="/AdminUpdateMember/:id" element={<UpdateMember />} />
-            Products
+            {/* Products */}
           <Route path="/Admin/AddProduct" element={<AddProduct />} />
           <Route path="/Admin/GetProducrs" element={<GetProducrs />} />
           <Route path="/AdminUpdateProduct/:id" element={<UpdateProduct />} />
-            Cource
+            {/* Cource */}
           <Route path="/Admin/AddCource" element={<AddCource />} />
           <Route path="/Admin/GetCources" element={<GetCources />} />
-          Accounts
-            
+          {/* Accounts */}  
           </Route>
-          
         </Routes>
         <Routes>
             <Route path="/user" element={<MemberLayout />}>
             <Route path="/user/Shop" element={<Shop/>} />
             <Route path="/user/MemberHome" element={<MemberHome/>} />
             <Route path="/user/MemberCourses" element={<MemberCourses/>} />
+            <Route path="/user/MemberCompleteCourses" element={<MemberCompleteCourses/>} />
+            <Route path="/user/MemberSupportCommunity" element={<MemberSupportCommunity/>} />
             </Route>
           </Routes>
       </BrowserRouter>

@@ -1,13 +1,32 @@
 import React from 'react'
-
+import { useState,useEffect } from 'react';
+import Loader from '../components/Loader';
 const Shop = () => {
+  const [getProducts, setProducts] = useState([]);
+  const [isloading, setLoading] = useState(true)
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    let result = await fetch("http://localhost:5000/Admin/getProducts");
+    result = await result.json();
+    console.log(result);
+    if(result<0){
+      result.send("<h1>No Data!</h1>")
+    }
+    console.log("Result from API Members list", result);
+    setProducts(result);
+    console.log(result._id)
+    setLoading(false)
+  };
   return (
     <>
-     {/* <div className="c" id="admin_user"> */}
-
-     <div className='position-absolute' style={{marginLeft:'20%',width:"80%"}}>
-     <div className='container  shop_container for_common_Top_margin' >
-        <div className='row'>
+     {isloading?(
+      <Loader />
+    ):( 
+      <div className='position-absolute' style={{marginLeft:'20%',width:"80%"}}>
+       <div className='container  shop_container for_common_Top_margin' >
+         <div className='row'>
             <div className='col-md-6'>
                 <div className='row '>
                     <h3>Shop</h3>
@@ -67,148 +86,32 @@ const Shop = () => {
 {/* <div className="c" id="admin_user"> */}
 
 <div className='container shop_container'>
-      <div className="row">
-        <div className='col-md-3  bg-white'>
+<div className="row">
+{getProducts.map((product) =>{
+  return(
+    <div className='col-md-3 mb-5 bg-white'>
             <div className="card product_card border-0" >
-                <img src="/product1.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
+                <img src={`http://localhost:5000/uploads/${product.image}`} height="277px" width="306px" className="card-img-top" alt="..."/>
                 <div className="card-body">
                   <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
+                  <h5 className="card-title font_family_common">{product.title}</h5>
                   <div className="ms-5">
                     <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
                     
                   </div>
-                  <h5 className="card-title font_family_common">300</h5>
+                  <h5 className="card-title font_family_common">{product.points}</h5>
                   </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p className="card-text">{product.description}</p>
                   <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
                 </div>
               </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product2.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product3.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product4.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product1.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product2.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product3.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
-        <div className='col-md-3  bg-white'>
-            <div className="card product_card border-0" >
-                <img src="/product4.svg" height="277px" width="306px" className="card-img-top" alt="..."/>
-                <div className="card-body">
-                  <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
-                  <h5 className="card-title font_family_common">Product Name</h5>
-                  <div className="ms-5">
-                    <img className='' width="50px" header="50px" src="/FullStar.png" alt='' />
-                    
-                  </div>
-                  <h5 className="card-title font_family_common">300</h5>
-                  </div>
-                  <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button href="#" className="btn radeem font_family_common common_button w-100">Radeem</button>
-                </div>
-              </div>
-        </div>
+             </div>
+  )
+})}
       </div>
     </div>
-</div>
+      </div>
+      )}
     </>
   )
 }

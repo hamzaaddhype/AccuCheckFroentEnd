@@ -45,7 +45,7 @@ const CreateAccount = () => {
       });
     } else {
       Swal.fire("Good job!", "Register Sucessfully!", "success");
-      navigate("/login");
+      navigate("/");
     }
     result = await result.json();
 
@@ -79,7 +79,7 @@ const CreateAccount = () => {
             </div>
         </div>
         {/* Left Half Form Section */}
-        <div className='col-md-6'>
+        <div className='col-md-6 left__sec_CreateAccount' >
             <div className='row left_padding'>
                <div className='logo'>
                     <img src='./roche_logo1.png' width={'120px'} alt='Roche'/>

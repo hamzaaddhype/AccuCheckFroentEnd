@@ -1,5 +1,4 @@
 import React from 'react'
-
 const MemberHome = () => {
   return (
     <>
@@ -38,40 +37,40 @@ const MemberHome = () => {
           <div className='row ms-1s'>
             <div className='col-md-3 mb-2'>
               <div className='member_card'>
-              <div className='card_heading p-3'>
+              <div className='card_heading p-3 text-dark'>
                 <p>Total Ponits</p>
               </div>
-              <div className='card_heading text-center'>
-                <h1>230</h1>
+              <div className='card_heading text-center text-dark'>
+                <h1>230h</h1>
               </div>
               </div>
             </div>
             <div className='col-md-3 mb-2'>
               <div className='member_card'>
-              <div className='card_heading p-3'>
+              <div className='card_heading p-3 text-dark'>
                 <p>Learning time</p>
               </div>
-              <div className='card_heading text-center'>
+              <div className='card_heading text-center text-dark'>
                 <h1>23h</h1>
               </div>
               </div>
             </div>
             <div className='col-md-3 mb-2'>
               <div className='member_card'>
-              <div className='card_heading p-3'>
+              <div className='card_heading p-3 text-dark'>
                 <p>Certificates</p>
               </div>
-              <div className='card_heading text-center'>
+              <div className='card_heading text-center text-dark'>
                 <h1>2</h1>
               </div>
               </div>
             </div>
             <div className='col-md-3 mb-2'>
               <div className='member_card'>
-              <div className='card_heading p-3'>
+              <div className='card_heading p-3 text-dark'>
                 <p>Completed Courses</p>
               </div>
-              <div className='card_heading text-center'>
+              <div className='card_heading text-center text-dark'>
                 <h1>25</h1>
               </div>
               </div>
@@ -97,7 +96,35 @@ const MemberHome = () => {
           <div className='row '>
             <div className='col-md-4'>
               <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
+                <img src="/Profile-like.png" alt='' />
+              </span>
+            </div>
+            <div className='col-md-4'>
+              <h6>Friendly</h6>
+              <p>Invites 3 friends from Google</p>
+            </div>
+            <div className='col-md-4 text-end'>
+              <p> <input type='date'  /> </p>
+            </div>
+          </div>
+          <div className='row '>
+            <div className='col-md-4'>
+              <span>
+                <img src="/profile-reward.png" alt='' />
+              </span>
+            </div>
+            <div className='col-md-4'>
+              <h6>Friendly</h6>
+              <p>Invites 3 friends from Google</p>
+            </div>
+            <div className='col-md-4 text-end'>
+              <p> <input type='date'  /> </p>
+            </div>
+          </div>
+          <div className='row '>
+            <div className='col-md-4'>
+              <span>
+                <img src="/Profile-3star.png" alt='' />
               </span>
             </div>
             <div className='col-md-4'>
@@ -125,35 +152,7 @@ const MemberHome = () => {
           <div className='row '>
             <div className='col-md-4'>
               <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
-              </span>
-            </div>
-            <div className='col-md-4'>
-              <h6>Friendly</h6>
-              <p>Invites 3 friends from Google</p>
-            </div>
-            <div className='col-md-4 text-end'>
-              <p> <input type='date'  /> </p>
-            </div>
-          </div>
-          <div className='row '>
-            <div className='col-md-4'>
-              <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
-              </span>
-            </div>
-            <div className='col-md-4'>
-              <h6>Friendly</h6>
-              <p>Invites 3 friends from Google</p>
-            </div>
-            <div className='col-md-4 text-end'>
-              <p> <input type='date'  /> </p>
-            </div>
-          </div>
-          <div className='row '>
-            <div className='col-md-4'>
-              <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
+                <img src="/Profile-star.png" alt='' />
               </span>
             </div>
             <div className='col-md-4'>
@@ -182,7 +181,35 @@ const MemberHome = () => {
           <div className='row '>
             <div className='col-md-4'>
               <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
+                <img src="/Profile-like.png" alt='' />
+              </span>
+            </div>
+            <div className='col-md-4'>
+              <h6>Friendly</h6>
+              <p>Invites 3 friends from Google</p>
+            </div>
+            <div className='col-md-4 text-end'>
+              <p> <input type='date'  /> </p>
+            </div>
+          </div>
+          <div className='row '>
+            <div className='col-md-4'>
+              <span>
+                <img src="/profile-reward.png" alt='' />
+              </span>
+            </div>
+            <div className='col-md-4'>
+              <h6>Friendly</h6>
+              <p>Invites 3 friends from Google</p>
+            </div>
+            <div className='col-md-4 text-end'>
+              <p> <input type='date'  /> </p>
+            </div>
+          </div>
+          <div className='row '>
+            <div className='col-md-4'>
+              <span>
+                <img src="/Profile-3star.png" alt='' />
               </span>
             </div>
             <div className='col-md-4'>
@@ -210,35 +237,7 @@ const MemberHome = () => {
           <div className='row '>
             <div className='col-md-4'>
               <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
-              </span>
-            </div>
-            <div className='col-md-4'>
-              <h6>Friendly</h6>
-              <p>Invites 3 friends from Google</p>
-            </div>
-            <div className='col-md-4 text-end'>
-              <p> <input type='date'  /> </p>
-            </div>
-          </div>
-          <div className='row '>
-            <div className='col-md-4'>
-              <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
-              </span>
-            </div>
-            <div className='col-md-4'>
-              <h6>Friendly</h6>
-              <p>Invites 3 friends from Google</p>
-            </div>
-            <div className='col-md-4 text-end'>
-              <p> <input type='date'  /> </p>
-            </div>
-          </div>
-          <div className='row '>
-            <div className='col-md-4'>
-              <span>
-                <img src="/Achievement-1k-icon.svg" alt='' />
+                <img src="/Profile-star.png" alt='' />
               </span>
             </div>
             <div className='col-md-4'>

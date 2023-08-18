@@ -19,25 +19,38 @@ const Signin = () => {
         "Content-Type": "application/json",
       },
     });
-    if (
-      !email ||
-      !password 
-    ) {
-      console.log("Login Sucessfully");
+    const data =result.json();
+    if(result.status=== 400 || !data){
       Swal.fire({
-        position:"top-end",
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter your all required fields",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
-    } else {
-      Swal.fire("Good job!", "Login Sucessfully!", "success");
+            position:"center",
+            icon: "error",
+            title: "Oops...",
+            text: "Invalid Cranditionals",
+          });
+    }else{
+      Swal.fire("Welcome!", "Login Sucessfully!", "success");
       navigate('/user')
+      window.alert("Successfull")
     }
-    result = await result.json();
+    // if (
+    //   !email ||
+    //   !password 
+    // ) {
+    //   console.log("Login Sucessfully");
+    //   Swal.fire({
+    //     position:"top-end",
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Please enter your all required fields",
+    //     footer: '<a href="">Why do I have this issue?</a>',
+    //   });
+    // } else {
+    //   Swal.fire("Good job!", "Login Sucessfully!", "success");
+    //   navigate('/user')
+    // }
+    // result = await result.json();
 
-    console.log("RESULT after Fecth", result);
+    // console.log("RESULT after Fecth", result);
   };
   const myFun=()=>{
     const toggle = document.querySelector("#togglePassword");
@@ -90,15 +103,19 @@ const Signin = () => {
                </div>
                <div className='row'>
                 <div className='form_body'>
-                <form>
+                <form method='POST'>
                     <div className="mb-3">
                         <label for="exampleInputEmail1" className="d-flex ms-3 mb-1">Email address</label>
-                        <input onChange={(e) => setEmail(e.target.value)} name='email' type="email" className="form-control inputs_background" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Input your email Here"/>
+                        <input 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)} name='email' type="email" className="form-control inputs_background" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Input your email Here"/>
                     </div>
                    
                       <div className="mb-3">
                          <label for="exampleInputPassword1" className="d-flex ms-3 form-label">Password</label>
-                         <input onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="text" className="form-control inputs_background fa-eye-slash " placeholder="Input your password Here" />
+                         <input 
+                         value={password}
+                         onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="text" className="form-control inputs_background fa-eye-slash " placeholder="Input your password Here" />
                         <span className='eye_password'> <i className="fa fa-eye" id="togglePassword" onClick={myFun}></i></span>
                     </div>
                     {/* <br/> */}

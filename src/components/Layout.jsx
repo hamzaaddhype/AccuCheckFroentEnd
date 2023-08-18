@@ -131,7 +131,7 @@ const Layout = () => {
         {/* Cource Routes end here */}
         <div className="row mt-5">
           <div className="col-12 mt-5">
-            <button className="btn btn-info w-100 fw-bold">Logout</button>
+          <NavLink to="/"><button className="btn btn-info w-100 fw-bold">Logout</button></NavLink>
           </div>
         </div>
       </div>

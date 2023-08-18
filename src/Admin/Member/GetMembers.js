@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../../components/Loader";
 const GetMembers = () => {
   const [getMember, setMember] = useState([]);
+  const [isloading, setLoading] = useState(true)
 
   useEffect(() => {
    getData();
@@ -13,8 +15,13 @@ const GetMembers = () => {
   const getData = async () => {
     let result = await fetch("http://localhost:5000/User/getMembers");
     result = await result.json();
+    if(result<0){
+      result.send("<h1>No Data!</h1>")
+    }
     console.log("Result from API Members list", result);
     setMember(result);
+    console.log(result._id);
+    setLoading(false)
   };
   const handleDelete = async (id) => {
     Swal.fire({
@@ -53,6 +60,9 @@ const GetMembers = () => {
   };
   return (
     <>
+     {isloading?(
+      <Loader />
+    ):( 
       <div className="c mt-3" id="admin_user">
         <div className="row">
           {getMember.map((member) => {
@@ -109,6 +119,10 @@ const GetMembers = () => {
           </div> */}
         </div>
       </div>
+      
+      )}
+
+      
     </>
   );
 };
