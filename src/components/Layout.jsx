@@ -2,6 +2,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 const Layout = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken'); // Remove the token from local storage
+    // Redirect to the login page or wherever you want
+  };
   return (
     <>
       <Outlet />
@@ -15,7 +19,7 @@ const Layout = () => {
         </div>
         {/* Member Routes start here */}
         <div className="row for_bac_radious">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <ul>
               <li className="side_list">
                 <div className="dropdown">
@@ -30,14 +34,14 @@ const Layout = () => {
                     User
                   </a>
                   <ul class="dropdown-menu">
-                    <NavLink to="/Admin/AddUser">
+                    <NavLink to="/Admin/Dashboard/AddUser">
                       <li>
                         <a className="dropdown-item" href="#">
                           Add Member
                         </a>
                       </li>
                     </NavLink>
-                    <NavLink to="/Admin/GetMembers">
+                    <NavLink to="/Admin/Dashboard/GetMembers">
                       <li>
                         <a className="dropdown-item" href="#">
                           Get All Member
@@ -54,7 +58,7 @@ const Layout = () => {
 
         {/* Shop Routes start here */}
         <div className="row for_bac_radious">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <ul>
               <li className="side_list">
                 <div className="dropdown">
@@ -69,14 +73,14 @@ const Layout = () => {
                     Shop
                   </a>
                   <ul class="dropdown-menu">
-                    <NavLink to="/Admin/AddProduct">
+                    <NavLink to="/Admin/Dashboard/AddProduct">
                       <li>
                         <a className="dropdown-item" href="#">
                           Add Product
                         </a>
                       </li>
                     </NavLink>
-                    <NavLink to="/Admin/GetProducrs">
+                    <NavLink to="/Admin/Dashboard/GetProducrs">
                       <li>
                         <a className="dropdown-item" href="#">
                           Get All Products
@@ -93,7 +97,7 @@ const Layout = () => {
 
         {/* Cource Routes start here */}
         <div className="row for_bac_radious">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <ul>
               <li className="side_list">
                 <div className="dropdown">
@@ -108,14 +112,14 @@ const Layout = () => {
                     Cource
                   </a>
                   <ul class="dropdown-menu">
-                    <NavLink to="/Admin/AddCource">
+                    <NavLink to="/Admin/Dashboard/AddCource">
                       <li>
                         <a className="dropdown-item" href="#">
                           Add Cource
                         </a>
                       </li>
                     </NavLink>
-                    <NavLink to="/Admin/GetCources">
+                    <NavLink to="/Admin/Dashboard/GetCources">
                       <li>
                         <a className="dropdown-item" href="#">
                           Get All Cources
@@ -131,7 +135,7 @@ const Layout = () => {
         {/* Cource Routes end here */}
         <div className="row mt-5">
           <div className="col-12 mt-5">
-          <NavLink to="/"><button className="btn btn-info w-100 fw-bold">Logout</button></NavLink>
+          <NavLink to="/Admin"><button onClick={handleLogout} className="btn btn-info w-100 fw-bold">Logout</button></NavLink>
           </div>
         </div>
       </div>

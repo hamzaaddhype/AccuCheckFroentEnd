@@ -5,37 +5,90 @@ import ReactPlayer from 'react-player'
 import Swal from 'sweetalert2';
 const MemberCourses = () => {
 const [getProducts, setProducts] = useState([]);
+const [getFalseStaus_cources, setFalseStausCources] = useState([]);
 const [isloading, setLoading] = useState(true);
 const [startTime, setStartTime] = useState(null);
 const [isVideoPaused, setVideoPaused] = useState(true);
-const [endTIme, setEndTIme] = useState(null);
+const [endTime, setEndTIme] = useState(null);
 const [timeWatched, setTimeWatched] = useState(0);
 const [videoCompleted, setVideoCompleted] = useState(false);
 const playerRef = useRef(null);
- 
+const [progress, setProgress] = useState(0);
+useEffect(() => {
+    console.log('timeWatched:', timeWatched);
+    console.log('videoDuration:', getProducts[0]?.duration);
+    const videoDuration = getProducts[0]?.duration;
+    const progress = videoDuration > 0 ? (timeWatched / videoDuration) * 100 : 0;
+    console.log('progress:', progress);
+    setProgress(progress);
+}, [timeWatched, getProducts]);
 
-    const playVideo=()=>{
-        playerRef.current.seekTo(startTime); 
-        setVideoCompleted(false);
-        playerRef.current.getInternalPlayer().play();
-    };
 
-    const handleTime=({playedSeconds})=>{
-        if(!startTime) {
-            setStartTime(playedSeconds);
-        }
-        if(!videoCompleted){
-            setEndTIme(playedSeconds);
-            setTimeWatched(playedSeconds- startTime);
-        }  
-    };
-
-    const handleVideoEnded = () =>{
-        setVideoCompleted(true);
-        setStartTime(null);
-        setEndTIme(null);
-        alert('Video ended');
+const handleTime = ({ playedSeconds }) => {
+    if (!startTime) {
+        setStartTime(playedSeconds);
     }
+
+    if (!videoCompleted) {
+        setEndTIme(playedSeconds);
+        const newTimeWatched = playedSeconds - startTime;
+        setTimeWatched(newTimeWatched);
+
+        const videoDurationInSeconds = convertToSeconds(getProducts[0]?.duration);
+        const calculatedProgress = (newTimeWatched / videoDurationInSeconds) * 100;
+        const progressPercentage = Math.min(calculatedProgress, 100);
+        setProgress(progressPercentage);
+    }
+};
+
+
+// const handleTime = ({ playedSeconds }) => {
+//     const handleTime = ({ playedSeconds }) => {
+//     console.log('Played Seconds:', playedSeconds);
+//     console.log('handleTime called:', playedSeconds);
+//     // ... (rest of the function)
+// };
+//     if (!startTime) {
+//         setStartTime(playedSeconds);
+//     }
+
+//     if (!videoCompleted) {
+//         setEndTIme(playedSeconds);
+//         setTimeWatched(playedSeconds - startTime);
+//     }
+// };
+// const handleTime = ({ playedSeconds }) => {
+//     if (!startTime) {
+//         setStartTime(playedSeconds);
+//     }
+
+//     if (!videoCompleted) {
+//         setEndTIme(playedSeconds);
+//         const newTimeWatched = playedSeconds - startTime;
+//         setTimeWatched(newTimeWatched);
+
+//         const videoDurationInSeconds = convertToSeconds(getProducts[0]?.duration);
+//         const calculatedProgress = (newTimeWatched / videoDurationInSeconds) * 100;
+//         const progressPercentage = Math.min(calculatedProgress, 100);
+//         setProgress(progressPercentage);
+//     }
+// };
+// const handleVideoEnded = () => {
+//     setVideoCompleted(true);
+//     setStartTime(null);
+//     setEndTIme(null);
+//     alert('Video ended');
+// };
+  
+
+const handleVideoEnded = () => {
+    setVideoCompleted(true);
+    setStartTime(null);
+    setEndTIme(null);
+    setTimeWatched(getProducts[0]?.duration); // Set timeWatched to the video duration
+    setProgress(100); // Set progress to 100%
+    alert('Video ended');
+};
 
     const getData = async () => {
         let result = await fetch("http://localhost:5000/Admin/getCources");
@@ -48,10 +101,42 @@ const playerRef = useRef(null);
         console.log(result._id);
         setLoading(false)
       };
+      const getFalseStausCources = async () => {
+        let result = await fetch("http://localhost:5000/User/getFalseStausCources");
+        result = await result.json();
+        console.log(result)
+        console.log("hamzano stratus found")
+        if(result<0){
+          result.send("<h1>No Data!</h1>")
+        }
+        console.log("Result from API Members list", result);
+        setFalseStausCources(result);
+        console.log(result._id);
+        setLoading(false)
+      };
       useEffect(() => {
         getData();
+        getFalseStausCources();
       }, []);
+      function convertToSeconds(timeString) {
+        const regex = /(\d+)\s*(HRS|min)/g;
+        const matches = [...timeString.matchAll(regex)];
       
+        let totalSeconds = 0;
+      
+        matches.forEach((match) => {
+          const value = parseInt(match[1]);
+          const unit = match[2];
+      
+          if (unit === 'HRS') {
+            totalSeconds += value * 3600; // Convert hours to seconds
+          } else if (unit === 'min') {
+            totalSeconds += value * 60; // Convert minutes to seconds
+          }
+        });
+        totalSeconds=totalSeconds / 60 ;
+        return totalSeconds;
+      }
   return (
     <>
          {/* <div className="c" id="admin_user"> */}
@@ -77,43 +162,59 @@ const playerRef = useRef(null);
                     </div>
                     <div className='row'><hr></hr></div>
                 </div>
-                                {
-                                    getProducts.map((product) =>{
-                                        return(
-                                            <div className='row ms-0 '>
-                                            <div className='col-md-3 vedio_ThumNail' style={{height:"10%"}}>
-                    {/* <img src='/medical-doctor.png' className='rounded'/> */}
-                    <ReactPlayer ref={playerRef} url={`http://localhost:5000/uploads/${product.image}`} controls={true} 
-                                                onProgress={handleTime} onEnded={handleVideoEnded} />
-                    {/* <button onClick={playVideo}> Play</button> */}
-                    <p>Time Watched: {timeWatched.toFixed(2)} seconds</p>
-                    </div>
-                    <div className='col mt-2'>
-                        <div className='row fw-normal'>
-                        <p>{product.name}</p>
-                        </div>
-                        <div className='row fw-light fs-6'>
-                        <p>{product.discription}</p>
-                        </div>
-                        <div className='row mt-2'>
-                            <div className='col-sm-3'><i class="fa-regular fa-clock">  &nbsp; {product.duration}</i></div>
-                            <div className='col p-0 ' style={{display:"flex",justifyContent:"right",height:"09%" }}> <img src='/Award-star.png'/></div>
-                            <div className='col-sm-3 p-0 mt-1 me-5'><p>{product.points}</p></div>
-                        </div>   
-                    </div>
-                    <div className='col-md-3 mt-3'>
-                        <button className='btn btn-primary ms-5 text-light'>Continue</button>
-                        <p className='ms-5'>Progress</p>
-                    </div>
-                   </div>             
-                    )
-                                    })
-                                }
-                   
+                {getProducts.map((product) => {
+                    const videoDurationInSeconds = convertToSeconds(product.duration);
 
+                    const progress = videoDurationInSeconds > 0 ? (timeWatched / videoDurationInSeconds) * 100 : 0;
 
-                  <br></br>
+                    console.log('playedSeconds:', timeWatched);
+                    console.log('videoDuration:', videoDurationInSeconds);
+                    console.log('progress:', progress);
+                        
+
+return (
+            <div className='row ms-0' key={product._id}>
+            <div className='col-md-3 video_Thumbnail' style={{ height: '10%' }}>
+                {/* Video Player */}
+                <ReactPlayer
+                    ref={playerRef}
+                    url={`http://localhost:5000/uploads/${product.image}`}
+                    controls={true}
+                    // onProgress={handleTime}
+                    // onEnded={handleVideoEnded}
+                    onProgress={handleTime}
+                    onEnded={handleVideoEnded}
+                />
+                <p>Time Watched: {(endTime - startTime).toFixed(2)} seconds</p>
             </div>
+            <div className='col mt-2'>
+                {/* ... (product details) */}
+            </div>
+            <div className='col-md-3 mt-3'>
+                <button className='btn btn-primary ms-5 text-light'>Continue</button>
+                <div key={product._id}>
+                <p>Progress</p>
+                {/* Progress Bar */}
+                <div className='progress'>
+                    <div
+                        className='progress-bar'
+                        role='progressbar'
+                        style={{ width: `${progress}%` }}
+                        aria-valuenow={progress}
+                        aria-valuemin='0'
+                        aria-valuemax='100'
+                    >
+                        {videoCompleted ? '100.00% Complete' : `${progress.toFixed(2)}% Complete`}
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+    
+    );
+})}
+            
+</div>
             <br/>
 
             
@@ -130,22 +231,33 @@ const playerRef = useRef(null);
                 <br/>
 
                 <div className='row ms-0'>
-                    <div  className='col-md-2 col-sm-2 border bg-white rounded p-0' style={{ width:"23%"}}>
-                        <div className='row'>
-                            <img height="80%" src='/Recommended-Course-1.png' className='rounded' width="100%"></img>
+                {getFalseStaus_cources.map((falseStaus)=>{
+                    return(
+                        <div  className='col-md-2 col-sm-2 border bg-white rounded p-0 m-2' style={{ width:"23%"}}>
+                        <div className='row auto_height'>
+                            {/* <img height="80%" src='/Recommended-Course-1.png' className='rounded' width="100%"></img> */}
+                            <ReactPlayer
+                                // ref={playerRef}
+                                url={`http://localhost:5000/uploads/${falseStaus.image}`}
+                                controls={true}
+                                // onProgress={handleTime}
+                                // onEnded={handleVideoEnded}
+                                // onProgress={handleTime}
+                                // onEnded={handleVideoEnded}
+                />
                         </div>
                         <div className='row'>
-                            <p className='fs-6 mt-2 ms-1 fw-normal'> Course Name goes here with details</p>
+                            <p className='fs-6 mt-2 ms-1 fw-normal'> {falseStaus.name}</p>
                         </div>
                         <div className='row'>   
-                            <i className='fa-regular fa-clock ms-3'> &nbsp; 30 min</i>
+                            <i className='fa-regular fa-clock ms-3'> &nbsp; {falseStaus.duration}</i>
                         </div>
                         <div className='row mt-2'> 
                             <div className='col-md-2 m-0 p-0 me-2' style={{display:"flex",justifyContent:"right", height:"03%",width:"20%"}}>
                                 <img  src='/Award-star.png' style={{height:"03%",width:"60%"}}></img>
                             </div>
                             <div className='col-md-2 m-0 p-0' style={{height:"03%",width:"20%"}}>
-                                <span>300</span>
+                                <span>{falseStaus.points}</span>
                             </div>
                         </div>
                         <br/>
@@ -155,60 +267,15 @@ const playerRef = useRef(null);
                             </div>
                         </div>
                     </div>
+                    )
+                })}
+                  
 
-                    <div  className='col-md-2  col-sm-2 ms-2 border bg-white rounded p-0' style={{width:"23%"}}>
-                        <div className='row'>
-                            <img height="80%" src='/Recommended-Course-2.png' className='rounded' width="100%"></img>
-                        </div>
-                        <div className='row'>
-                            <p className='fs-6 mt-2 ms-1 fw-normal'> Course Name goes here with details</p>
-                        </div>
-                        <div className='row'>   
-                            <i className='fa-regular fa-clock ms-3'> &nbsp; 30 min</i>
-                        </div>
-                        <div className='row mt-2'> 
-                            <div className='col-md-2 m-0 p-0 me-2' style={{display:"flex",justifyContent:"right", height:"03%",width:"20%"}}>
-                                <img  src='/Award-star.png' style={{height:"03%",width:"60%"}}></img>
-                            </div>
-                            <div className='col-md-2 m-0 p-0' style={{height:"03%",width:"20%"}}>
-                                <span>300</span>
-                            </div>
-                        </div>
-                        <br></br>
-                        <div className='row'>
-                            <div class="col-md-12"  style={{display:"flex",justifyContent:"right"}}>
-                                <button type="button" class="btn me-2 mb-2" style={{width:"60%",backgroundColor:"#8EB927"}}>Start</button>
-                            </div>
-                        </div>
-                    </div>
+                    
 
-                    <div  className='col-md-2 col-sm-2 ms-2 border bg-white rounded p-0' style={{width:"23%"}}>
-                        <div className='row'>
-                            <img height="80%" src='/Recommended-Course-3.png' className='rounded' width="100%"></img>
-                        </div>
-                        <div className='row'>
-                            <p className='fs-6 mt-2 ms-1 fw-normal'> Course Name goes here with details</p>
-                        </div>
-                        <div className='row'>   
-                            <i className='fa-regular fa-clock ms-3'> &nbsp; 30 min</i>
-                        </div> 
-                        <div className='row mt-2'> 
-                            <div className='col-md-2 m-0 p-0 me-2' style={{display:"flex",justifyContent:"right", height:"03%",width:"20%"}}>
-                                <img  src='/Award-star.png' style={{height:"03%",width:"60%"}}></img>
-                            </div>
-                            <div className='col-md-2 m-0 p-0' style={{height:"03%",width:"20%"}}>
-                                <span>300</span>
-                            </div>
-                        </div>
-                        <br></br>
-                        <div className='row'>
-                            <div class="col-md-12"  style={{display:"flex",justifyContent:"right"}}>
-                                <button type="button" class="btn me-2 mb-2" style={{width:"60%",backgroundColor:"#8EB927"}}>Start</button>
-                            </div>
-                        </div>
-                    </div>
+                    
 
-                    <div className='col-md-2 col-sm-2 ms-2   border bg-white rounded p-0' style={{width:"23%"}}>
+                    {/* <div className='col-md-2 col-sm-2 ms-2   border bg-white rounded p-0' style={{width:"23%"}}>
                         <div className='row'>
                             <img height="80%" src='/Recommended-Course-4.png' className='rounded' width="100%"></img>
                         </div>
@@ -232,7 +299,7 @@ const playerRef = useRef(null);
                                 <button type="button" class="btn me-2 mb-2" style={{width:"60%",backgroundColor:"#8EB927"}}>Start</button>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
@@ -241,3 +308,6 @@ const playerRef = useRef(null);
 }
 
 export default MemberCourses;
+
+
+

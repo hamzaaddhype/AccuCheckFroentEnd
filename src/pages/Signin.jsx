@@ -29,6 +29,9 @@ const Signin = () => {
           });
     }else{
       Swal.fire("Welcome!", "Login Sucessfully!", "success");
+      const token = data.token; 
+      // Store the token in local storage
+      localStorage.setItem('jwtToken', token);
       navigate('/user')
       window.alert("Successfull")
     }

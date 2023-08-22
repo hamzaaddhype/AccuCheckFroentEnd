@@ -30,32 +30,34 @@ const GetProducrs = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        // Delete the product
+        await fetch(`http://localhost:5000/Admin/dellProduct/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Resource deleted successfully");
+              // Call getData to fetch updated product list
+              getData();
+            } else {
+              console.error("Error deleting resource");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        
         Swal.fire(
           'Deleted!',
           'Your Prodcut has been deleted.',
           'success'
-        ) 
+        )
       }
-
-    })
-    await fetch(`http://localhost:5000/Admin/dellProduct/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Resource deleted successfully");
-          // toast.error("Deleted successfully");
-        } else {
-          console.error("Error deleting resource");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    // getData();
+    });
   };
+  
   return (
 
     <>
@@ -98,7 +100,7 @@ const GetProducrs = () => {
               <p class="fw-normal mb-1">{product.points}</p>
             </td>
             <td className="d-flex">
-            <NavLink to={`/Admin/UpdateProduct/${product._id}`}>
+            <NavLink to={`/Admin/Dashboard/UpdateProduct/${product._id}`}>
               <button type="button" className="btn btn-warning btn-sm me-2">
               <i class="fa-solid fa-pen-to-square"></i>
               </button>

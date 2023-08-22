@@ -5,7 +5,7 @@ const MemberSupportCommunity = () => {
          {/* <div className="c" id="admin_user"> */}
         <div className='position-absolute' style={{marginLeft:'20%',width:"80%", marginTop:"07%"}}>
             {/* First Container  support & Community*/}
-            <div className="container border mt-5 rounded bg-light" style={{width:"95%"}}>
+            <div className="container border mt-5 rounded support_community" style={{width:"95%"}}>
                 <div className='row'>
                     <div className='col-md-6 mt-2'>
                         <h3 className='ms-2 fw-bold'>Support & Community</h3>
@@ -63,7 +63,7 @@ const MemberSupportCommunity = () => {
                     </div>
 
                     <div className='col-md-6'>
-                        <div className='row border rounded bg-white ms-3' style={{width:'125%'}}>
+                        <div className='row border rounded support_community_row ms-3' style={{width:'125%'}}>
                             <div className='col-lg'>
                                 <p className='mt-2 fw-bold'>Category Title</p>
                                 <p>Category description belongs here. Feel free to add long or evene short description.
@@ -71,13 +71,13 @@ const MemberSupportCommunity = () => {
                                 </p>
                             </div>
                             <div className='col-md-3'>
-                                <img src='/line.svg' className=' ms-4' style={{height:"80%"}}></img>
+                                <img src='/line.svg' className=' ms-4' style={{height:"50%"}}></img>
                                 <a href=''><i className='fa fa-greater-than' style={{marginLeft:"30%",marginTop:"45%"}}></i></a>
                             </div>
                         </div>
                         <br/>
 
-                        <div className='row border rounded bg-white ms-3' style={{width:'125%'}}>
+                        <div className='row border rounded support_community_row  ms-3' style={{width:'125%'}}>
                             <div className='col-lg'>
                                 <p className='mt-2 fw-bold'>Category Title</p>
                                 <p>Category description belongs here. Feel free to add long or evene short description.
@@ -85,13 +85,13 @@ const MemberSupportCommunity = () => {
                                 </p>
                             </div>
                             <div className='col-md-3'>
-                                <img src='/line.svg' className='mt-0 ms-4' style={{height:"80%"}}></img>
+                                <img src='/line.svg' className='mt-0 ms-4' style={{height:"50%"}}></img>
                                 <a href=''><i className='fa fa-greater-than' style={{marginLeft:"30%",marginTop:"45%"}}></i></a>
                             </div>
                         </div>
                         <br/>
 
-                        <div className='row border rounded bg-white ms-3' style={{width:'125%'}}>
+                        <div className='row border rounded support_community_row  ms-3' style={{width:'125%'}}>
                             <div className='col-lg'>
                                 <p className='mt-2 fw-bold'>Category Title</p>
                                 <p>Category description belongs here. Feel free to add long or evene short description.
@@ -99,7 +99,7 @@ const MemberSupportCommunity = () => {
                                 </p>
                             </div>
                             <div className='col-md-3'>
-                                <img src='/line.svg' className='mt-0 ms-4' style={{height:"80%"}}></img>
+                                <img src='/line.svg' className='mt-0 ms-4' style={{height:"50%"}}></img>
                                 <a href=''><i className='fa fa-greater-than' style={{marginLeft:"30%",marginTop:"45%"}}></i></a>
                             </div>
                         </div>
@@ -111,7 +111,7 @@ const MemberSupportCommunity = () => {
             </div>
 
             {/* Second Container Contact Us*/}
-            <div className='container' style={{display:'flex'}}>
+            <div className='container support_community_row' style={{display:'flex'}}>
                 <div className='col border mt-2 rounded bg-light m-3 p-0' style={{ width:"45%"}}>
                     <h3 className='text-center fw-bold mt-5'>Contact Us</h3>
                     <br/>
@@ -123,20 +123,20 @@ const MemberSupportCommunity = () => {
                         <input className='ms-5 w-75 fw-light' type='email' placeholder='Input Your Email Here' style={{textAlign:'left',textIndent:'10%'}}>
                         </input><br/>
                         <label className='fw-bold  ms-5 mt-3'>Message</label><br/>
-                        <textarea rows={5} className='ms-5 border-info rounded fw-light' placeholder='Write your message here' style={{textAlign:'left',textIndent:'10%',height:"90%",width:"75%"}}></textarea>
-                        <button className='btn btn-info rounded-pill ms-5 w-75'>Send</button>
+                        <textarea rows={5} className='ms-5  rounded fw-light' placeholder='Write your message here' style={{textAlign:'left',textIndent:'10%',height:"90%",width:"75%"}}></textarea>
+                        <button className='btn sign-btn_1 sign_btn rounded-pill ms-5 w-75'>Send</button>
                     </form>
 
                 </div>
-                <div className='col border mt-2 rounded bg-light p-0 ms-3' style={{height:'60%',width:'30%'}}>
-                    <h5 className=' ms-3' style={{marginTop:'15%'}}>Where to Start</h5><br></br>
-                    <a href='/user/MemberHome'><p className='ms-3  text-decoration-underline'>Getting Started</p></a>
-                    <a href=''><p className='ms-3  text-decoration-underline'>Account</p></a>
-                    <a href='/user/Shop'><p className='ms-3 text-decoration-underline'>Shop</p></a>
-                    <a href=''><p className='ms-3 text-decoration-underline'>Frequently Asked Questions</p></a>
-                    <a href=''><p className='ms-3 text-decoration-underline'>Features</p></a>
-                    <a href='/user/MemberCompleteCourses'><p className='ms-3 text-decoration-underline'>Status</p></a>
-                    <a href='/user/Shop'><p className='ms-3 text-decoration-underline'>Changelog</p></a>
+                <div className='col border mt-2 rounded bg-light p-0 ms-3 support_community_row' style={{height:'60%',width:'30%'}}>
+                    <h5 className=' ms-3 company_logo_color' style={{marginTop:'15%'}}>Where to Start</h5><br></br>
+                    <a href='/user/MemberHome'><p className='ms-3 company_logo_color  text-decoration-underline'>Getting Started</p></a>
+                    <a href='hamza'><p className='ms-3  text-decoration-underline company_logo_color'>Account</p></a>
+                    <a href='/user/Shop'><p className='ms-3 text-decoration-underline company_logo_color'>Shop</p></a>
+                    <a href='hamza'><p className='ms-3 text-decoration-underline company_logo_color'>Frequently Asked Questions</p></a>
+                    <a href='hamza'><p className='ms-3 text-decoration-underline company_logo_color'>Features</p></a>
+                    <a href='/user/MemberCompleteCourses'><p className='ms-3 text-decoration-underline company_logo_color'>Status</p></a>
+                    <a href='/user/Shop'><p className='ms-3 text-decoration-underline company_logo_color'>Changelog</p></a>
                 </div>
             </div>
         </div>

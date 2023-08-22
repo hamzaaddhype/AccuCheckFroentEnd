@@ -32,31 +32,32 @@ const GetMembers = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        // Delete the product
+        await fetch(`http://localhost:5000/User/dellMember/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Resource deleted successfully");
+              // Call getData to fetch updated product list
+              getData();
+            } else {
+              console.error("Error deleting resource");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        
         Swal.fire(
           'Deleted!',
           'Your Prodcut has been deleted.',
           'success'
-        ) 
+        )
       }
-
-    })
-    await fetch(`http://localhost:5000/User/dellMember/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Resource deleted successfully");
-          // toast.error("Deleted successfully");
-        } else {
-          console.error("Error deleting resource");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    // getData();
+    });
   };
   return (
     <>
@@ -78,7 +79,7 @@ const GetMembers = () => {
                     role="group"
                     aria-label="Basic example"
                   >
-                    <NavLink to={`/Admin/UpdateMember/${member._id}`}>
+                    <NavLink to={`/Admin/Dashboard/UpdateMember/${member._id}`}>
                     <button type="button" className="btn btn-warning">
                     <i class="fa-regular fa-pen-to-square"></i>
                     </button>

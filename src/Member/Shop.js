@@ -3,7 +3,15 @@ import { useState,useEffect } from 'react';
 import Loader from '../components/Loader';
 const Shop = () => {
   const [getProducts, setProducts] = useState([]);
-  const [isloading, setLoading] = useState(true)
+  const [isloading, setLoading] = useState(true);
+
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+
+
+
+
+
   useEffect(() => {
     getData();
   }, []);
@@ -25,7 +33,7 @@ const Shop = () => {
       <Loader />
     ):( 
       <div className='position-absolute' style={{marginLeft:'20%',width:"80%"}}>
-       <div className='container  shop_container for_common_Top_margin' >
+       <div className='container  shop_container for_common_Top_margin shop_remove_border shop_container_height' style={{width:'95%'}} >
          <div className='row'>
             <div className='col-md-6'>
                 <div className='row '>
@@ -41,43 +49,48 @@ const Shop = () => {
             </div>
         </div>
         {/* Filter Buttons Row */}
-        <div className='row p-3'>
-           <div className='col-2 m-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common active'>All</button>
-              </div>
-           </div>
-           <div className='col-2 m-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common' >Products</button>
-              </div>
-           </div>
-           <div className='col-2 m-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common'>Food</button>
-              </div>
-           </div>
-           <div className='col-2 m-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common'>Gifts</button>
-              </div>
-           </div>
-           <div className='col-1 m-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common'>Electronics</button>
-              </div>
-           </div>
-           <div className='col-1 ms-1'>
-              <div className='row'>
-                <button className='btn common_button font_family_common'>Clothing</button>
-              </div>
-           </div>
-           <div className='col-1 ms-1'>
-              <div className='row'>
-                <button className='btn font_family_common common_button'>Dessert</button>
-              </div>
-           </div>
+        <div className='row'>
+    <div className='col-md-12'>
+        <div className='d-flex justify-content-between'>
+        <button
+          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'All' ? 'active' : ''}`}
+          onClick={() => setSelectedCategory('All')}>
+          All
+        </button>
+        {/* 2nd button */}
+        <button
+          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Products' ? 'active' : ''}`}
+          onClick={() => setSelectedCategory('Products')}>
+          Products
+        </button>
+            {/*3rd Button  */}
+            <button
+              className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Food' ? 'active' : ''}`}
+              onClick={() => setSelectedCategory('Food')}>
+              Food
+            </button>
+            {/* 4th Button */}
+            <button
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Gift' ? 'active' : ''}`}
+            onClick={() => setSelectedCategory('Gift')}>
+            Gifts
+          </button>
+          {/* 5th Button */}
+          <button
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Clothing' ? 'active' : ''}`}
+            onClick={() => setSelectedCategory('Clothing')}>
+            Clothing
+          </button>
+          {/* 6th Button */}
+          <button
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Dessert' ? 'active' : ''}`}
+            onClick={() => setSelectedCategory('Dessert')}>
+            Dessert
+          </button>
         </div>
+    </div>
+</div>
+
     </div>
      {/* </div> */}
    
@@ -87,9 +100,9 @@ const Shop = () => {
 
 <div className='container shop_container'>
 <div className="row">
-{getProducts.map((product) =>{
+{getProducts.filter(product => selectedCategory === 'All' || product.category === selectedCategory).map((product) =>{
   return(
-    <div className='col-md-3 mb-5 bg-white'>
+    <div className='col-md-3 mb-5 set_card_showdow'>
             <div className="card product_card border-0" >
                 <img src={`http://localhost:5000/uploads/${product.image}`} height="277px" width="306px" className="card-img-top" alt="..."/>
                 <div className="card-body">
