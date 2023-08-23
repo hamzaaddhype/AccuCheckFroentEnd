@@ -5,31 +5,30 @@ const MemberHome = () => {
        {/* Member Prodile  */}
         {/* <div className="c" id="admin_user"> */}
         <div className='user_profile_root_crad position-absolute ps-2' style={{width:"80%",marginLeft:"20%"}}>
-        <div className="container  for_common_Top_margin" >
-                <div className='row ms-1 doctor_profile' >
-                    <div className='doctor_image doc_parent_div d-flex'>
-                        <img src='/doctor-bigImage.png' width="138.67px" height="138.67px" alt=''/>
-                        <div className='doc_child ms-5'>
-                          <div className='d-flex ms-1'>
-                          <h6 className='doc_name'>Ahmed Ali </h6>
-                          <h6 className='doc_level doc_name'>Level 1</h6>
-                          </div>
-                          
-                          <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                            <div className="progress-bar w-75"></div>
-                        </div>
-                        <div>
-                           <p className='ms-1 doc_xp'>Xp 1280</p>
-                        </div>
-                        </div>
-                        <div className='edit_button'>
-                         <button className='btn edit_profile'> Edit Profile</button>
-                       </div>
-                    </div>
-                    
-                </div>
-            {/* </div> */}
+        <div className="container for_common_Top_margin">
+  <div className='row ms-1 doctor_profile'>
+    <div className='doctor_image doc_parent_div d-flex'>
+      <img src='/doctor-bigImage.png' width="138.67px" height="138.67px" alt='' />
+      <div className='doc_child ms-5'>
+        <div className='d-flex ms-1'>
+          <h6 className='doc_name'>Ahmed Ali </h6>
+          <h6 className='doc_level doc_name'>Level 1</h6>
+        </div>
+
+        <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div className="progress-bar w-75"></div>
+        </div>
+        <div>
+          <p className='ms-1 doc_xp'>Xp 1280</p>
+        </div>
       </div>
+      <div className='edit_button'>
+        <button className='btn edit_profile'>Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       {/* Member Cards */}
       {/* <div className="c" id="admin_user"> */}
