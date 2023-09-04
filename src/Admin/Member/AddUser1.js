@@ -23,8 +23,8 @@ const SideBar = () => {
     name: Joi.string().min(3).max(50).required(),
     email: Joi.string().email().min(10).max(100).required(),
     password: Joi.string().min(8).max(100).required(),
-    country: Joi.string().min(3).max(100).required(),
-    langguage: Joi.string().min(3).max(100).required(),
+    country: Joi.string().min(1).max(100).required(),
+    langguage: Joi.string().min(1).max(100).required(),
     confrim_password: Joi.string().min(8).max(100).required(),
   };
 
@@ -47,29 +47,36 @@ const SideBar = () => {
     }
     setErrors(errorData);
   };
-
+ 
   const savebtnhandler = async (e) => {
     e.preventDefault();
-    let result = await fetch("http://localhost:5000/User/userRegister", {
+
+    try {
+      let result = await fetch("http://localhost:5000/User/userRegister", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const hasErrors = Object.keys(errors).length > 0;
-    if (hasErrors) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter all required fields correctly",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
-    } else {
-      Swal.fire("Good job!", "User added successfully!", "success");
-    }
+    if(result.status=== 201){
+      Swal.fire("success!", "User add Sucessfuly!", "success");
+    
+    // navigate('/user')
+    window.alert("Successfull")
+  }else{
+    Swal.fire({
+      position:"center",
+      icon: "error",
+      title: "Oops...",
+      text: "User added Failed",
+    });
+  } 
     result = await result.json();
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   const CHangeFunction = (event) => {

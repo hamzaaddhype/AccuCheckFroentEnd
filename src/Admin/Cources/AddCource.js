@@ -1,279 +1,8 @@
-
-// import React, { useState } from "react";
-// import Joi from 'joi-browser';
-// import Swal from "sweetalert2";
-
-// let AddCource = () => {
-//   let [name, setName] = useState("");
-//   let [id, setId] = useState("");
-//   let [discription, setDescription] = useState("");
-//   let [points, setPoints] = useState("");
-//   let [status, setStatus] = useState("");
-//   let [duration, setDuration] = useState("");
-//   let [uploaded_file, setFilePath] = useState(null);
-//   let [url, setUrl] = useState("");
-//   let [errors, setErrors] = useState({});
-  
-//   let schema = {
-//     name: Joi.string().min(3).max(100).required(),
-//     id: Joi.number().integer().min(1).required(),
-//     discription: Joi.string().min(10).required(),
-//     points: Joi.number().integer().min(1).required(),
-//     status: Joi.string().min(3).required(),
-//     duration: Joi.string().min(3).required(),
-//     url: Joi.string().min(3).required(),
-//     uploaded_file: Joi.string().min(200).required(),
-//   };
-
-//   let validateProperty = (name, value) => {
-//     let obj = { [name]: value };
-//     let subSchema = { [name]: schema[name] };
-//     let result = Joi.validate(obj, subSchema);
-//     let { error } = result;
-//     return error ? error.details[0].message : null;
-//   };
-
-//   let handleBlur = (event) => {
-//     let { name, value } = event.target;
-//     let errorMessage = validateProperty(name, value);
-//     setErrors((prevErrors) => ({
-//       ...prevErrors,
-//       [name]: errorMessage,
-//     }));
-//   };
-
-//     let saveBtnHandler = async (e) => {
-//     e.preventDefault();
-//     let formValues = { name, id, discription, points, status, duration, url, image };
-//     let validationErrors = {};
-//     let isValid = true;
-
-//     for (let field in schema) {
-//       let errorMessage = validateProperty(field, formValues[field]);
-//       if (errorMessage) {
-//         validationErrors[field] = errorMessage;
-//         isValid = false;
-//       }
-//     }
-//     setErrors(validationErrors);
-
-//     if (isValid) {
-//       try {
-//         let response = await fetch("http://localhost:5000/Admin/addCources", {
-//           method: "POST",
-//           body: JSON.stringify(formValues),
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         });
-//         let result = await response.json();
-//         console.log("RESULT after Fetch", result);
-//         if (result) {
-//           Swal.fire("Good job!", "Course added successfully!", "success");
-//         }
-//       } catch (error) {
-//         console.error("Error:", error);
-//       }
-//     }
-//   };
-
-  // return (
-  //   <div className="c" id="admin_user">
-  //     {/* Navigation Buttons */}
-  //     <div className="row">{/* Your navigation buttons here */}</div>
-
-  //     {/* Form Section */}
-  //     <div className="row">
-  //       {/* Left Half Form Section */}
-  //       <div className="col-md-6" id="div_center">
-  //         <div className="row left_padding">
-  //           <div className="row text-center mt-3">
-  //             <h3 className="d-flex fw-bold mb-2 justify-content-center">
-  //               Add Course
-  //             </h3>
-  //           </div>
-  //           <div className="row">
-  //             <div className="form_body">
-  //               <form encType="multipart/form-data">
-  //               <div className="row">
-  //               <div className="mb-3 col-md-6">
-  //                   <label htmlFor="name" className="d-flex ms-3 mb-1">
-  //                     Title
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setName(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="name"
-  //                     type="text"
-  //                     className="form-control inputs_background"
-  //                     id="user_name"
-  //                   />
-  //                   {errors.name && (
-  //                     <div className="alert alert-danger">{errors.name}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3 col-md-6">
-  //                   <label htmlFor="id" className="d-flex ms-3 mb-1">
-  //                     SKU Number
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setId(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="id"
-  //                     type="number"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputEmail1"
-  //                     aria-describedby="emailHelp"
-  //                   />
-  //                   {errors.id && (
-  //                     <div className="alert alert-danger">{errors.id}</div>
-  //                   )}
-  //                 </div>
-  //               </div>
-                 
-  //                 {/* Other input fields */}
-  //                 {/* ... */}
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     Description
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setDescription(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="discription"
-  //                     type="text"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {errors.discription && (
-  //                     <div className="alert alert-danger">{errors.discription}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     Points
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setPoints(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="points"
-  //                     type="number"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {errors.points && (
-  //                     <div className="alert alert-danger">{errors.points}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     Status
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setStatus(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="status"
-  //                     type="text"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {errors.status && (
-  //                     <div className="alert alert-danger">{errors.status}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     Duration
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setDuration(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="duration"
-  //                     type="text"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {errors.duration && (
-  //                     <div className="alert alert-danger">{errors.duration}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     URL
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setUrl(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="url"
-  //                     type="text"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {errors.url && (
-  //                     <div className="alert alert-danger">{errors.url}</div>
-  //                   )}
-  //                 </div>
-  //                 <div className="mb-3">
-  //                   <label
-  //                     htmlFor="exampleInputPassword1"
-  //                     className="d-flex ms-3 form-label"
-  //                   >
-  //                     URL
-  //                   </label>
-  //                   <input
-  //                     onChange={(e) => setFilePath(e.target.value)}
-  //                     onBlur={handleBlur}
-  //                     name="uploaded_file"
-  //                     type="file"
-  //                     className="form-control inputs_background"
-  //                     id="exampleInputPassword1"
-  //                   />
-  //                   {/* {errors.url && (
-  //                     <div className="alert alert-danger">{errors.url}</div>
-  //                   )} */}
-  //                 </div>
-  //                 <div className="">
-  //                   <button
-  //                     className="btn sign-btn_1 sign_btn"
-  //                     onClick={saveBtnHandler}
-  //                     type="submit"
-  //                   >
-  //                     Save Course
-  //                   </button>
-  //                 </div>
-  //               </form>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //       {/* Other sections */}
-  //       {/* ... */}
-  //     </div>
-  //   </div>
-  // );
-// };
-
-// export default AddCource;
-
 import React, { useState } from "react";
 import Joi from 'joi-browser';
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 let AddCource = () => {
   let [name, setName] = useState("");
   let [id, setId] = useState("");
@@ -284,6 +13,9 @@ let AddCource = () => {
   let [image, setImage] = useState(null);
   let [url, setUrl] = useState("");
   let [errors, setErrors] = useState({});
+  const [addedSuccessfully, setAddedSuccessfully] = useState(false);
+  const navigate = useNavigate();
+
 
   let schema = {
         name: Joi.string().min(3).max(100).required(),
@@ -333,6 +65,21 @@ let AddCource = () => {
       // send a POST request to the server to add the product
       let response = await axios.post("http://localhost:5000/Admin/addCources", formData);
       console.log(response.data); 
+      if(response.status=== 201){
+        Swal.fire("success!", "Cource add Sucessfuly!", "success");
+        setAddedSuccessfully(true);
+        resetFormData();
+      
+      navigate('/Admin/Dashboard/GetCources')
+      window.alert("Successfull")
+    }else{
+      Swal.fire({
+        position:"center",
+        icon: "error",
+        title: "Oops...",
+        text: "Cource added Failed",
+      });
+    } 
 
     } catch (error) {
       console.log(error);
@@ -350,7 +97,17 @@ let AddCource = () => {
            setErrors(validationErrors);      
    
   };
-
+  const resetFormData = () => {
+    setName("");
+    setId("");
+    setDescription("");
+    setPoints("");
+    setStatus("");
+    setDuration("");
+    setImage("");
+    setUrl("");
+    setErrors({});
+  };
   return (
     <> 
       <div className="c" id="admin_user">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import video from '../../Videos/myVideo.mp4'
-
+import Loader from '../../components/Loader'
 const GetCources = () => {
 // Fet All Cources from Database
 const [getProducts, setProducts] = useState([]);
 const [count, setCount] = useState([]);
+const [isloading, setLoading] = useState(true)
 useEffect(() => {
   getData();
 }, []);
@@ -19,6 +20,7 @@ const getData = async () => {
   console.log("Result from API Members list", result);
   setProducts(result);
   console.log(result._id);
+  setLoading(false)
 };
 
 let count2 = getProducts.length;
@@ -41,6 +43,9 @@ let count2 = getProducts.length;
 
   return (
    <>
+{isloading?(
+      <Loader />
+    ):( 
       <div className='c' id='admin_user'>
       {/* Heading */}
         <h1 className='text-center'>All Cources</h1>
@@ -68,7 +73,7 @@ let count2 = getProducts.length;
               <div className="row mb-3 for_row_background">
               <div className='col-md-4'>
                   <div className="vedio_ThumNail">
-                    <ReactPlayer url={Cource.image} controls={true} onProgress={handleTime}   onEnded={handleVideoEnded} />
+                    <ReactPlayer url={`http://localhost:5000/uploads/${Cource.image}`} controls={true} onProgress={handleTime}   onEnded={handleVideoEnded} />
                     {console.log(`Time taken: ${endTime && startTime ? (endTime - startTime) / 1000 + " seconds" : "N/A"}`)}
 
                   </div>
@@ -92,6 +97,9 @@ let count2 = getProducts.length;
           })}
         </div>
       </div>
+      )}
+
+     
    </>
   )
 }

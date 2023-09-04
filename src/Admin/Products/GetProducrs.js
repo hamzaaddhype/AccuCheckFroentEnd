@@ -2,22 +2,24 @@ import React from "react";
 import { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../../components/Loader";
 const GetProducrs = () => {
   const [getProducts, setProducts] = useState([]);
-
+  const [isloading, setLoading] = useState(true)
   useEffect(() => {
     getData();
-  }, []);
-
+  }, []);  
   const getData = async () => {
     let result = await fetch("http://localhost:5000/Admin/getProducts");
     result = await result.json();
+    console.log(result);
     if(result<0){
       result.send("<h1>No Data!</h1>")
     }
     console.log("Result from API Members list", result);
     setProducts(result);
     console.log(result._id)
+    setLoading(false)
   };
   const handleDelete = async (id) => {
     Swal.fire({
@@ -28,35 +30,40 @@ const GetProducrs = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        // Delete the product
+        await fetch(`http://localhost:5000/Admin/dellProduct/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Resource deleted successfully");
+              // Call getData to fetch updated product list
+              getData();
+            } else {
+              console.error("Error deleting resource");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        
         Swal.fire(
           'Deleted!',
           'Your Prodcut has been deleted.',
           'success'
-        ) 
+        )
       }
-
-    })
-    await fetch(`http://localhost:5000/Admin/dellProduct/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Resource deleted successfully");
-          // toast.error("Deleted successfully");
-        } else {
-          console.error("Error deleting resource");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    // getData();
+    });
   };
+  
   return (
+
     <>
-      <table className="table align-middle mb-0 bg-white">
+    {isloading?(
+      <Loader />
+    ):( <table className="table align-middle mb-0 bg-white">
         <thead className="bg-light">
           <tr>
             <th>Title</th>
@@ -73,7 +80,7 @@ const GetProducrs = () => {
             <td>
               <div class="d-flex align-items-center">
                 <img
-                  src="./logo192.png"
+                  src={`http://localhost:5000/uploads/${product.image}`}
                   alt=""
                   style={{ width: "45px", height: "45px" }}
                   class="rounded-circle"
@@ -92,8 +99,8 @@ const GetProducrs = () => {
             <td>
               <p class="fw-normal mb-1">{product.points}</p>
             </td>
-            <td className="">
-            <NavLink to={`/Admin/UpdateProduct/${product._id}`}>
+            <td className="d-flex">
+            <NavLink to={`/Admin/Dashboard/UpdateProduct/${product._id}`}>
               <button type="button" className="btn btn-warning btn-sm me-2">
               <i class="fa-solid fa-pen-to-square"></i>
               </button>
@@ -144,7 +151,8 @@ const GetProducrs = () => {
             </td>
           </tr> */}
         </tbody>
-      </table>
+      </table>)}
+     
     </>
   );
 };
